@@ -19,8 +19,9 @@
     }
 </style>
 <script>
-    import { mapState, mapGetters, mapActions } from "vuex";
+    import { mapGetters } from "vuex";
     import Item from '../Item/Item';
+    
     export default {
         components: { Item },
         computed: {

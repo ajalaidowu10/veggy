@@ -10,7 +10,13 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                       <form v-if="$route.name == 'item-list'" class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <input 
+                            class="form-control mr-sm-2" 
+                            type="text" 
+                            placeholder="Search" 
+                            aria-label="Search"
+                            @input="setSearchField($event)" 
+                            >
                       </form>
                       <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
@@ -34,11 +40,14 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapActions } from "vuex";
 
      export default {
         computed: {
             ...mapGetters(['getCartQty'])
+        },
+        methods: {
+            ...mapActions(['setSearchField'])
         }
     }
 </script>

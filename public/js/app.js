@@ -2015,7 +2015,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getCartQty']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getCartQty'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['setSearchField']))
 });
 
 /***/ }),
@@ -2293,6 +2294,11 @@ var render = function render() {
       type: "text",
       placeholder: "Search",
       "aria-label": "Search"
+    },
+    on: {
+      input: function input($event) {
+        return _vm.setSearchField($event);
+      }
     }
   })]) : _vm._e(), _vm._v(" "), _c("ul", {
     staticClass: "navbar-nav ml-auto"
@@ -55673,10 +55679,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 var state = {
   cartItems: [],
@@ -55800,12 +55803,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var state = {
-  items: []
+  items: [],
+  searchField: ''
 };
 var getters = {
   getItems: function getItems(state) {
-    return state.items.filter(function (item) {
-      return item.qty > 0;
+    var items = state.items,
+        searchField = state.searchField;
+    return items.filter(function (item) {
+      return item.title.toLowerCase().includes(searchField.toLowerCase()) && item.qty > 0;
     });
   }
 };
@@ -55815,11 +55821,18 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/item").then(function (res) {
       commit('SET_ITEMS', res.data.data);
     });
+  },
+  setSearchField: function setSearchField(_ref2, event) {
+    var commit = _ref2.commit;
+    commit('SET_SEARCH_FIELD', event.target.value);
   }
 };
 var mutations = {
   SET_ITEMS: function SET_ITEMS(state, items) {
     state.items = items;
+  },
+  SET_SEARCH_FIELD: function SET_SEARCH_FIELD(state, text) {
+    state.searchField = text;
   }
 };
 var itemModule = {

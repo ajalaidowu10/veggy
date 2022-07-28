@@ -1,12 +1,14 @@
 import axios from 'axios';
 
 const state = {
-	items: []
+	items: [],
+	searchField: '',
 }
 
 const getters = {
   getItems: state => {
-  	return state.items.filter(item => item.qty > 0);
+  	const { items, searchField } = state;
+  	return items.filter(item => (item.title.toLowerCase().includes(searchField.toLowerCase()) && item.qty > 0));
   }
 }
 
@@ -15,12 +17,19 @@ const actions = {
 	    axios.get(`/api/item`).then(res => {
 	      commit('SET_ITEMS', res.data.data)
 	    });
+	  },
+	setSearchField ({ commit }, event) {
+	      commit('SET_SEARCH_FIELD', event.target.value);
 	  }
 }
 
 const mutations = {
 	SET_ITEMS(state, items){
 		state.items = items;
+	},
+
+	SET_SEARCH_FIELD(state, text){
+		state.searchField = text;
 	},
 }
 
