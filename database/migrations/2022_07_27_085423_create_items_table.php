@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('description');
             $table->string('image');
             $table->decimal('price');
+            $table->integer('qty');
             $table->timestamps();
         });
     }

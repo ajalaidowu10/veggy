@@ -7,6 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta
+      name="description"
+      content="Online Fresh Vegetable Delivery Shopping"
+    />
+
     <title>{{ config('app.name', 'Veggy') }} | Home</title>
     
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon" />
@@ -23,8 +28,6 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <h1>Hello Mei</h1>
-    </div>
+    <div id="app"></div>
 </body>
 </html>
